@@ -19,7 +19,9 @@ function Server (req, res){
   console.log("." + the_path);
   fs.exists("." + the_path, function (exists) { //Is the path exists?
     if (exists){
-      if (fs.lstatSync("." + the_path).isDirectory()) { //Is the path refer to a file or direction?
+      //if (fs.lstatSync("." + the_path).isDirectory()) { //Is the path refer to a file or direction?
+      exec('test -d .' + the_path, function (err, stout, sterr){
+        if (stout === true){
         //for direction
         res.writeHead(200, {
           "Content-Type": "text/html; charset=UTF-8"
@@ -35,13 +37,12 @@ function Server (req, res){
           }
           res.end();
         });
-        return;
       } else {
         //for file
         res.writeHead(200, {"Content-Type": "application/octet-stream"});//this should not be text!
         fs.createReadStream("." + the_path).pipe(res);
-        return;
       }
+      });
     } else {
       // 404
       res.writeHead(404, {"Content-Type": "text/plain"});
