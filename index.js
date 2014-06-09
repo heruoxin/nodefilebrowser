@@ -29,7 +29,7 @@ function Server (req, res){
         res.writeHead(200, {
           "Content-Type": "text/html; charset=UTF-8"
         });
-        res.write('<h3>' + the_path + '</h3>');
+        res.write('<h2><a href=../ >⬆︎</a></h2><h3>' + the_path + '</h3>');
         exec('ls ' + the_path, function (err, stout, sterr){
           var file_list = stout.split('\n');
           for (var i in file_list){
@@ -43,7 +43,7 @@ function Server (req, res){
       } else {
         //for file
         res.writeHead(200, {"Content-Type": "application/octet-stream"});//this should not be text!
-        fs.createReadStream("." + the_path).pipe(res);
+        fs.createReadStream(the_path).pipe(res);
       }
 
   });
