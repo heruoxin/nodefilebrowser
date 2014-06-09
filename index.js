@@ -15,13 +15,16 @@ if (process.argv.length == 2){
 }
 
 function Server (req, res){
-  the_path = "." + url.parse(req.url,true).pathname;
+  the_path = decodeURI("." + url.parse(req.url,true).pathname);
   console.log(the_path);
   fs.exists(the_path, function (exists) { //Is the path exists?
     if (exists){
       if (fs.lstatSync(the_path).isDirectory()) { //Is the path refer to a file or direction?
         //for direction
-        res.writeHead(200, {"Content-Type": "text/html"});
+        res.writeHead(200, {
+          "Content-Type": "text/html",
+          "charset": "UTF-8"
+        });
         res.write('<h3>' + the_path + '</h3>');
         exec('ls ' + the_path, function (err, stout, sterr){
           var file_list = stout.split('\n');
