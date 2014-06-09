@@ -18,8 +18,13 @@ function Server (req, res){
   var the_path = decodeURI(url.parse(req.url,true).pathname);
   console.log("." + the_path);
   fs.exists("." + the_path, function (exists) { //Is the path exists?
-    if (exists){
-      if (fs.lstatSync("." + the_path).isDirectory()) { //Is the path refer to a file or direction?
+    if (!exists){
+      // 404
+      res.writeHead(404, {"Content-Type": "text/plain"});
+      res.end("404 Not Found");
+      return;
+    }
+      if (fs.statSync("." + the_path).isDirectory()) { //Is the path refer to a file or direction?
         //for direction
         res.writeHead(200, {
           "Content-Type": "text/html; charset=UTF-8"
@@ -35,18 +40,13 @@ function Server (req, res){
           }
           res.end();
         });
-        return;
       } else {
         //for file
         res.writeHead(200, {"Content-Type": "application/octet-stream"});//this should not be text!
+      console.log('5');
         fs.createReadStream("." + the_path).pipe(res);
-        return;
       }
-    } else {
-      // 404
-      res.writeHead(404, {"Content-Type": "text/plain"});
-      res.end("404 Not Found");
-    }
+
   });
 }
 
