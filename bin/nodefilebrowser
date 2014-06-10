@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+
+var fb = require('../lib/index.js');
+
+//useage: nodeFileBrowser [port]
+
+//
+var os=require('os');
+var ifaces=os.networkInterfaces();
+for (var dev in ifaces) {
+  var alias=0;
+  ifaces[dev].forEach(function(details){
+    if (details.family=='IPv4') {
+      console.log(dev+(alias?':'+alias:''),details.address);
+      ++alias;
+    }
+  });
+}
+//
+
+
+var port = process.argv[2] || 6489;
+var path = process.argv[3] || ".";
+
+fb.fileBrowser(port, path);
