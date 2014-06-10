@@ -1,10 +1,13 @@
 {
   "name": "nodefilebrowser",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "A simple http server. It's just my test to learn node. Don't use it. The http-server package is your best choise.",
   "main": "index.js",
   "scripts": {
-    "test": "nodefilebrowser 6489"
+    "test": "nodefilebrowser -p 6489 /tmp/"
+  },
+  "dependencies": {
+    "minimist": "0.1.0"
   },
   "repository": {
     "type": "git",

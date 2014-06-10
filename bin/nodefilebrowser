@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 
 var fb = require('../lib/index.js');
+var argv = require('minimist')(process.argv.slice(2));
 
-//useage: nodeFileBrowser [port]
+console.log("usage: nodefilebrowser [-p port] [path]\n");
+var port = argv.p || 6489;
+var path = argv._[0] || ".";
 
 //
 var os=require('os');
@@ -10,8 +13,9 @@ var ifaces=os.networkInterfaces();
 for (var dev in ifaces) {
   var alias=0;
   ifaces[dev].forEach(function(details){
-    if (details.family=='IPv4') {
-      console.log(dev+(alias?':'+alias:''),details.address);
+    var eth = (dev+(alias?':'+alias:''));
+    if (eth.indexOf('lo') == -1 && details.family == 'IPv4') {
+      console.log("Listen on port",eth,details.address+":"+port);
       ++alias;
     }
   });
@@ -19,7 +23,5 @@ for (var dev in ifaces) {
 //
 
 
-var port = process.argv[2] || 6489;
-var path = process.argv[3] || ".";
 
 fb.fileBrowser(port, path);
