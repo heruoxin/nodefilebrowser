@@ -3,9 +3,13 @@
 var fb = require('../lib/index.js');
 var argv = require('minimist')(process.argv.slice(2));
 
-console.log("usage: nodefilebrowser [-p port] [path]\n");
 var port = argv.p || 6489;
 var path = argv._[0] || ".";
+var show_hidden_file = argv.s || true;
+if (port == 6489 && path == "." && show_hidden_file === false){
+  console.log("usage: nodefilebrowser [-p port] [path]");
+}
+
 
 var os=require('os');
 var ifaces=os.networkInterfaces();
@@ -20,5 +24,8 @@ for (var dev in ifaces) {
   });
 }
 
-
-fb.fileBrowser(port, path);
+fb(port, path, function(err, rs){
+  if (err){console.error(rs);}
+  else {console.log(rs);}
+});
+console.log();
