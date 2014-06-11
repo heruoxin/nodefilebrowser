@@ -1,6 +1,6 @@
 {
   "name": "nodefilebrowser",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "A simple http server. It's just my test to learn node. Don't use it. The http-server package is your best choise.",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "url": "http://heruoxin@1ittlecup.com:8080/r/nodejs/nodeFileBrowser.git"
   },
   "bin": {
-    "nodeFileBrowser": "./bin/nodeFileBrowser"
+    "nodefilebrowser": "./bin/nodefilebrowser"
   },
   "author": "heruoxin",
   "license": "ISC"
