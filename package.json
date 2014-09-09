@@ -1,6 +1,6 @@
 {
   "name": "nodefilebrowser",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "description": "A simple http server. It's just my test to learn node. Don't use it. The http-server package is your best choise.",
   "main": "index.js",
   "scripts": {
