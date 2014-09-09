@@ -3,7 +3,7 @@
 var fb = require('../lib/index.js');
 var argv = require('minimist')(process.argv.slice(2));
 
-var port = argv.p || 6489;
+var port = argv.p || 8081;
 var path = argv._[0] || ".";
 var show_hidden_file = argv.s || true;
 if (port == 6489 && path == "." && show_hidden_file === false){
